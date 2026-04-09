@@ -31,6 +31,10 @@ function M.to_right()
     navigate.to("l")
 end
 
+function M.to(direction)
+    navigate.to(direction)
+end
+
 function M.next_window()
     navigate.window("n")
 end

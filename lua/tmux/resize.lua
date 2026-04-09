@@ -65,4 +65,16 @@ function M.to_right(step)
     end
 end
 
+function M.to(direction, step)
+    if direction == "h" then
+        M.to_left(step)
+    elseif direction == "j" then
+        M.to_bottom(step)
+    elseif direction == "k" then
+        M.to_top(step)
+    elseif direction == "l" then
+        M.to_right(step)
+    end
+end
+
 return M
