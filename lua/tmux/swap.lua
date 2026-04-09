@@ -17,7 +17,7 @@ function M.setup()
     end
 end
 
-function M.to(direction)
+function M._to(direction)
     local is_nvim_border = nvim.is_nvim_border(direction)
     local persist_zoom = true -- tmux swap-pane when zoomed causes error
     local has_tmux_target = layout.has_tmux_target(direction, persist_zoom, options.swap.cycle_navigation)
@@ -31,19 +31,31 @@ function M.to(direction)
 end
 
 function M.to_left()
-    M.to("h")
+    M._to("h")
 end
 
 function M.to_bottom()
-    M.to("j")
+    M._to("j")
 end
 
 function M.to_top()
-    M.to("k")
+    M._to("k")
 end
 
 function M.to_right()
-    M.to("l")
+    M._to("l")
+end
+
+-- Note: this function is exposed to public API and uses "left/right/top/bottom" as direction,
+-- instead of "h/j/k/l".
+function M.to(direction)
+    local direction_map = { left = "h", right = "l", top = "k", bottom = "j" }
+    local res_direction = direction_map[direction]
+    if res_direction then
+        M._to(res_direction)
+    else
+        print("Invalid direction: " .. tostring(direction))
+    end
 end
 
 return M

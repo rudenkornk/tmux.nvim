@@ -65,4 +65,15 @@ function M.to_right(step)
     end
 end
 
+-- Note: this function is exposed to public API and uses "left/right/top/bottom" as direction,
+-- instead of "h/j/k/l".
+function M.to(direction, step)
+    local func = M["to_" .. direction]
+    if func then
+        func(step)
+    else
+        print("Invalid direction: " .. tostring(direction))
+    end
+end
+
 return M

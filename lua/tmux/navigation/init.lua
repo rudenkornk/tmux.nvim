@@ -31,6 +31,18 @@ function M.to_right()
     navigate.to("l")
 end
 
+-- Note: this function is exposed to public API and uses "left/right/top/bottom" as direction,
+-- instead of "h/j/k/l".
+function M.to(direction)
+    local direction_map = { left = "h", right = "l", top = "k", bottom = "j" }
+    local res_direction = direction_map[direction]
+    if res_direction then
+        navigate.to(res_direction)
+    else
+        print("Invalid direction: " .. tostring(direction))
+    end
+end
+
 function M.next_window()
     navigate.window("n")
 end
