@@ -14,9 +14,6 @@ describe("snacks wrapper", function()
         _G.Snacks = nil
     end)
 
-    -- -----------------------------------------------------------------------
-    -- using_snacks
-    -- -----------------------------------------------------------------------
     describe("using_snacks", function()
         it("returns false when Snacks global is absent", function()
             assert.is_false(snacks.using_snacks())
@@ -28,9 +25,6 @@ describe("snacks wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- focused_picker
-    -- -----------------------------------------------------------------------
     describe("focused_picker", function()
         it("returns nil when snacks is not loaded", function()
             assert.is_nil(snacks.focused_picker())
@@ -92,9 +86,6 @@ describe("snacks wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- is_float
-    -- -----------------------------------------------------------------------
     describe("is_float", function()
         it("returns true for nil picker", function()
             assert.is_true(snacks.is_float(nil))
@@ -117,9 +108,6 @@ describe("snacks wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- position
-    -- -----------------------------------------------------------------------
     describe("position", function()
         it("returns nil for nil picker", function()
             assert.is_nil(snacks.position(nil))

@@ -38,9 +38,6 @@ describe("nvim wrapper", function()
         end
     end)
 
-    -- -----------------------------------------------------------------------
-    -- is_nvim_border — fallback path (no snacks)
-    -- -----------------------------------------------------------------------
     describe("is_nvim_border without snacks", function()
         it("returns true when winnr equals winnr(1<dir>) (at border)", function()
             -- Default before_each: both return 1
@@ -58,9 +55,6 @@ describe("nvim wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- is_nvim_border — snacks path
-    -- -----------------------------------------------------------------------
     describe("is_nvim_border with focused snacks picker", function()
         it("returns true when picker is at the queried border (left → h)", function()
             snacks_mock.set_focused_picker(snacks_mock.make_picker("left", nil))
@@ -102,9 +96,6 @@ describe("nvim wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- is_nvim_float — fallback path (no snacks)
-    -- -----------------------------------------------------------------------
     describe("is_nvim_float without snacks", function()
         it("returns false for a normal (non-floating) window", function()
             vim.api.nvim_win_get_config = function(_)
@@ -121,9 +112,6 @@ describe("nvim wrapper", function()
         end)
     end)
 
-    -- -----------------------------------------------------------------------
-    -- is_nvim_float — snacks path
-    -- -----------------------------------------------------------------------
     describe("is_nvim_float with focused snacks picker", function()
         it("returns true for a floating snacks picker (no layout.split)", function()
             snacks_mock.set_focused_picker(snacks_mock.make_picker(nil, nil))

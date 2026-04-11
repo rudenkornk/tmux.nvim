@@ -269,7 +269,6 @@ describe("navigate.to with snacks picker", function()
         _G.Snacks = nil
     end)
 
-    -- Tiled picker at left border + tmux pane available → change_pane called
     it("tiled picker at left border: navigates to tmux pane", function()
         snacks_mock.set_focused_picker(snacks_mock.make_picker("left", "left"))
         layout.has_tmux_target = function()
@@ -291,8 +290,6 @@ describe("navigate.to with snacks picker", function()
         assert.is_false(wincmd_called)
     end)
 
-    -- Tiled picker at left border, direction is right → is_nvim_border false,
-    -- is_nvim_float false → falls through to wincmd
     it("tiled picker at left border: moves inside nvim when direction is away from border", function()
         snacks_mock.set_focused_picker(snacks_mock.make_picker("left", "left"))
         layout.has_tmux_target = function()
@@ -309,7 +306,6 @@ describe("navigate.to with snacks picker", function()
         assert.are.same("l", wincmd_direction)
     end)
 
-    -- Floating picker (no split) + tmux target → treated as float, change_pane called
     it("floating picker: navigates to tmux pane regardless of border", function()
         snacks_mock.set_focused_picker(snacks_mock.make_picker(nil, nil))
         layout.has_tmux_target = function()
@@ -326,7 +322,6 @@ describe("navigate.to with snacks picker", function()
         assert.are.same("h", called_direction)
     end)
 
-    -- Floating picker + no tmux target → stays in nvim (wincmd)
     it("floating picker with no tmux target: moves inside nvim", function()
         snacks_mock.set_focused_picker(snacks_mock.make_picker(nil, nil))
         layout.has_tmux_target = function()
