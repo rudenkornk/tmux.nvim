@@ -32,8 +32,6 @@ function M.to_right()
     navigate.to("l")
 end
 
--- Note: this function is exposed to public API and uses "left/right/top/bottom" as direction,
--- instead of "h/j/k/l".
 function M.to(direction)
     local direction_map = { left = "h", right = "l", top = "k", bottom = "j" }
     local res_direction = direction_map[direction]
