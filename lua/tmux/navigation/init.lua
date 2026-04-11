@@ -1,6 +1,7 @@
 local keymaps = require("tmux.keymaps")
 local navigate = require("tmux.navigation.navigate")
 local options = require("tmux.configuration.options")
+local log = require("tmux.log")
 
 local M = {}
 
@@ -39,7 +40,7 @@ function M.to(direction)
     if res_direction then
         navigate.to(res_direction)
     else
-        print("Invalid direction: " .. tostring(direction))
+        log.error("Invalid direction: " .. tostring(direction))
     end
 end
 

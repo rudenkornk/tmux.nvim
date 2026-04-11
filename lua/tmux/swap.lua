@@ -3,6 +3,7 @@ local options = require("tmux.configuration.options")
 local layout = require("tmux.layout")
 local nvim = require("tmux.wrapper.nvim")
 local tmux = require("tmux.wrapper.tmux")
+local log = require("tmux.log")
 
 local M = {}
 
@@ -17,45 +18,40 @@ function M.setup()
     end
 end
 
-function M._to(direction)
-    local is_nvim_border = nvim.is_nvim_border(direction)
+function M.to(direction)
+    local direction_map = { left = "h", right = "l", top = "k", bottom = "j" }
+    local res_direction = direction_map[direction]
+    if not res_direction then
+        log.error("Invalid direction: " .. tostring(res_direction))
+        return
+    end
+
+    local is_nvim_border = nvim.is_nvim_border(res_direction)
     local persist_zoom = true -- tmux swap-pane when zoomed causes error
-    local has_tmux_target = layout.has_tmux_target(direction, persist_zoom, options.swap.cycle_navigation)
+    local has_tmux_target = layout.has_tmux_target(res_direction, persist_zoom, options.swap.cycle_navigation)
     if (nvim.is_nvim_float() or is_nvim_border) and has_tmux_target then
-        tmux.swap(direction)
+        tmux.swap(res_direction)
     elseif is_nvim_border and options.swap.cycle_navigation then
-        nvim.swap(nvim.opposite_direction(direction), 999)
+        nvim.swap(nvim.opposite_direction(res_direction), 999)
     elseif not is_nvim_border then
-        nvim.swap(direction, vim.v.count)
+        nvim.swap(res_direction, vim.v.count)
     end
 end
 
 function M.to_left()
-    M._to("h")
+    M.to("left")
 end
 
 function M.to_bottom()
-    M._to("j")
+    M.to("bottom")
 end
 
 function M.to_top()
-    M._to("k")
+    M.to("top")
 end
 
 function M.to_right()
-    M._to("l")
-end
-
--- Note: this function is exposed to public API and uses "left/right/top/bottom" as direction,
--- instead of "h/j/k/l".
-function M.to(direction)
-    local direction_map = { left = "h", right = "l", top = "k", bottom = "j" }
-    local res_direction = direction_map[direction]
-    if res_direction then
-        M._to(res_direction)
-    else
-        print("Invalid direction: " .. tostring(direction))
-    end
+    M.to("right")
 end
 
 return M

@@ -3,6 +3,7 @@ local keymaps = require("tmux.keymaps")
 local nvim = require("tmux.wrapper.nvim")
 local options = require("tmux.configuration.options")
 local tmux = require("tmux.wrapper.tmux")
+local log = require("tmux.log")
 
 local M = {}
 
@@ -72,7 +73,7 @@ function M.to(direction, step)
     if func then
         func(step)
     else
-        print("Invalid direction: " .. tostring(direction))
+        log.error("Invalid direction: " .. tostring(direction))
     end
 end
 
