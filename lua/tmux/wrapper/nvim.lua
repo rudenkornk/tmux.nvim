@@ -1,12 +1,23 @@
+local snacks = require("tmux.wrapper.snacks")
+
 local opposite_directions = { h = "l", j = "k", k = "j", l = "h" }
 
 local M = {}
 
 function M.is_nvim_border(border)
+    local snacks_picker = snacks.focused_picker()
+    if snacks_picker then
+        return snacks.position(snacks_picker) == border
+    end
+
     return M.winnr() == M.winnr("1" .. border)
 end
 
 function M.is_nvim_float()
+    local snacks_picker = snacks.focused_picker()
+    if snacks_picker then
+        return snacks.is_float(snacks_picker)
+    end
     return vim.api.nvim_win_get_config(0).relative ~= ""
 end
 
